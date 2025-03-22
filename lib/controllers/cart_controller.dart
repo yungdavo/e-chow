@@ -14,6 +14,12 @@ class CartController extends GetxController {
 
   Map<int, CartModel> get items => _items;
 
+  /*
+  only for storage and shared preferences
+ */
+  
+  List<CartModel> storageItems=[];
+
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
@@ -99,7 +105,7 @@ class CartController extends GetxController {
       return totalQuantity;
   } //to show the number of items on the cart icon
 
-    List<CartModel> get getItems{
+  List<CartModel> get getItems{
     return _items.entries.map((e){
        return e.value;
     }).toList();
@@ -112,4 +118,34 @@ class CartController extends GetxController {
       });
     return total;
   } // to get total amount for items in cart
+
+  List<CartModel> getCartData(){
+
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+
+  set setCart(List<CartModel> items){
+    storageItems = items;
+    
+    for(int i=0; i<storageItems.length; i++){
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
+  }
+
+  void addToHistory(){
+     cartRepo.addToCartHistoryList();
+     clear();
+  }
+
+  void clear(){
+    _items = {};
+    update();
+  }
+
+  List <CartModel> getCartHistoryList(){
+
+    return cartRepo.getCartHistoryList();
+  }
+
 }

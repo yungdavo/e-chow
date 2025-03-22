@@ -71,7 +71,7 @@ class CartPage extends StatelessWidget {
                           return ListView.builder(
                               itemCount: _cartList.length,
                               itemBuilder: (_, index){
-                                return Container(
+                                return SizedBox(
                                   height: 100, width: double.maxFinite,
                                   child: Row(
                                     children: [
@@ -81,13 +81,15 @@ class CartPage extends StatelessWidget {
                                               .popularProductList
                                               .indexOf(_cartList[index].product!);
                                           if (popularIndex>=0){
-                                            Get.toNamed(RouteHelper.getPopularFood(popularIndex,"cartpage")
+                                            Get.toNamed(RouteHelper.getPopularFood(popularIndex,"cartpage"
+                                              ),
                                             );
                                           }else{
                                             var recommendedIndex  = Get.find<RecommendedProductController>()
                                                 .recommendedProductList
                                                 .indexOf(_cartList[index].product!);
-                                            Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage")
+                                            Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage"
+                                              ),
                                             );
                                           }
                                         },
@@ -221,6 +223,7 @@ class CartPage extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     //popularProduct.addItem(product);
+                    cartController.addToHistory();
                   },
                   child: Container(
                     child: BigText(

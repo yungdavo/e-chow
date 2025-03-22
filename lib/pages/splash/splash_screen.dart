@@ -3,7 +3,6 @@ import 'package:e_Chow/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/popular_product_controllers.dart';
 import '../../controllers/recommended_product_controller.dart';
 import '../../utils/dimensions.dart';
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     controller = AnimationController(
         vsync: this,
         duration: const Duration(seconds: 3)
-    )..forward();
+    )..forward(); //this starts the animation
     animation = CurvedAnimation(
         parent: controller,
         curve: Curves.linear
@@ -40,8 +39,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     Timer(
         const Duration(seconds: 4),
         ()=>Get.offNamed(
-            RouteHelper.getInitial())
-    );
+            RouteHelper.getInitial()
+        )
+    );// Timer: this is responsible for moving the splash screen to a new page
   }
 
   @override

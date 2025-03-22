@@ -74,11 +74,11 @@ class RecommendedFoodDetail extends StatelessWidget {
                           ),
                         ):
                         Container()
-                      ],
-                    ),
-                  );
-                })
-
+                        ],
+                      ),
+                    );
+                  }
+                )
               ],
             ),
             bottom: PreferredSize(

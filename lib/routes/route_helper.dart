@@ -16,8 +16,8 @@ class RouteHelper{
 
   //Activate transition effects
   static String getSplashScreen()=> '$splashScreen';
-  static  String getInitial()=>'$initial';
-  static  String getPopularFood(int pageId, String page)=> '$popularFood?pageId=$pageId&page=$page';
+  static String getInitial()=>'$initial';
+  static String getPopularFood(int pageId, String page)=> '$popularFood?pageId=$pageId&page=$page';
   static String getRecommendedFood(int pageId, String page)=> '$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage()=>'$cartPage';
 

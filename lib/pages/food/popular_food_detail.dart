@@ -70,7 +70,7 @@ class PopularFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (controller){
                     return GestureDetector(
                       onTap: (){
-                        if(controller.totalItems >= 1)
+                        if(controller.totalItems >= 1) //this one makes sure there's at least 1 item to go to cart page
                          Get.toNamed(RouteHelper.getCartPage()
                          );
                       },

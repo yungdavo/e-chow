@@ -1,8 +1,9 @@
+import 'package:e_Chow/pages/Cart/cart_history.dart';
 import 'package:e_Chow/pages/home/main_food_page.dart';
 import 'package:e_Chow/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
 
 
 class HomePage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     MainFoodPage(),
     Container(child: Center(child: Text("Page 1"))),
-    Container(child: Center(child: Text("Page 2"))),
+    CartHistory(),
     Container(child: Center(child: Text("Page 3"))),
   ];
 

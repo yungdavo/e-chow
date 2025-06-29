@@ -26,20 +26,47 @@ class PopularProductController extends GetxController{
   int get inCartItems => _inCartItems + _quantity ;
 
 
-  Future <void> getPopularProductList() async{
+  /*Future <void> getPopularProductList() async{
     Response response = await popularProductRepo.getPopularProductList();
     //when this is called, it goes to api_client, finds response and sends to repo and to controller
     if(response.statusCode==200){
 
       _popularProductList=[];
-      _popularProductList.addAll(Product.fromJson(response.body).products); //this is where we used our models
+      _popularProductList.addAll(Product.fromJson(response.body).products);//this is where we used our models
       // print(_popularProductList);
+      _popularProductList = response.body.map((data) => ProductModel.fromJson(data)).toList();
+
       _isLoaded=true;
       update();
     }else{
       print("Couldn't get Product");
     }
+  }*/
+
+
+  Future<void> getPopularProductList() async {
+    Response response = await popularProductRepo.getPopularProductList();
+
+    if (response.statusCode == 200) {
+      _popularProductList = [];
+      try {
+        _popularProductList = (response.body as List)
+            .map((data) => ProductModel.fromJson(data))
+            .toList();
+        _isLoaded = true;
+        update();
+      } catch (e) {
+        print("Parsing error: $e");
+      }
+    } else {
+      print("Couldn't get Product. Status: ${response.statusCode}");
+    }
   }
+
+
+
+
+
 
   void setQuantity (bool isIncrement){
     //responsible for increasing and decreasing the number of items to be added

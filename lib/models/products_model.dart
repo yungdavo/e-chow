@@ -33,8 +33,8 @@ class ProductModel {
   int? stars;
   String? img;
   String? location;
-  String? createdAt;
-  String? updatedAt;
+  String? created_At;
+  String? updated_At;
   int? typeId;
 
   ProductModel(
@@ -45,8 +45,8 @@ class ProductModel {
         this.stars,
         this.img,
         this.location,
-        this.createdAt,
-        this.updatedAt,
+        this.created_At,
+        this.updated_At,
         this.typeId});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
@@ -57,8 +57,8 @@ class ProductModel {
     stars = json['stars'];
     img = json['img'];
     location = json['location'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    created_At = json['created_at'];
+    updated_At = json['updated_at'];
     typeId = json['type_id'];
   }
 
@@ -69,8 +69,8 @@ class ProductModel {
      "price": this.price,
      "img": this.img,
      "location": this.location,
-     "createdAt": this.createdAt,
-     "updatedAt": this.updatedAt,
+     "created_at": this.created_At,
+     "updated_at": this.updated_At,
      "typeId": this.typeId
    };
   }

@@ -110,7 +110,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             //this makes the bg img disappear n show color
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                    AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
+                    AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.image!,
                   width: double.maxFinite,
                 fit: BoxFit.cover,
               ),

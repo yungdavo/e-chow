@@ -40,20 +40,14 @@ class RecommendedProductController extends GetxController {
   bool get isLoaded => _isLoaded;
 
   Future<void> getRecommendedProductList() async {
-    Response response = await recommendedProductRepo.getRecommendedProductList();
-    if (response.statusCode == 200) {
-      try {
-        _recommendedProductList = (response.body as List)
-            .map((data) => ProductModel.fromJson(data))
-            .toList();
-        _isLoaded = true;
-        update();
-      } catch (e) {
-        print("Recommended parsing error: $e");
-      }
-    } else {
-      print("Couldn't get product: ${response.statusText}");
+    try {
+      _recommendedProductList = await recommendedProductRepo.getRecommendedProductList();
+      _isLoaded = true;
+      update();
+    } catch (e) {
+      print("Couldn't load recommended products: $e");
     }
   }
+
 }
 

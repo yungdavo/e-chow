@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import '../../controllers/popular_product_controllers.dart';
 import '../../controllers/recommended_product_controller.dart';
 import '../../utils/colors.dart';
@@ -53,7 +53,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       child: Container(
                         child: Icon(Icons.search,
                           color: Colors.white,
-                          size: Dimensions.iconSize24,),
+                          size: Dimensions.iconSize24),
                         width: Dimensions.width45,
                         height: Dimensions.height45,
                         decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:e_Chow/base/no_data_page.dart';
+import 'package:e_Chow/controllers/auth_controller.dart';
 import 'package:e_Chow/controllers/cart_controller.dart';
 import 'package:e_Chow/controllers/popular_product_controllers.dart';
 import 'package:e_Chow/utils/app_constants.dart';
@@ -57,7 +58,6 @@ class CartPage extends StatelessWidget {
                   ),
               ),
           GetBuilder<CartController>(builder: (_cartController){
-
             return _cartController.getItems.length>0?
             Positioned(
               top:Dimensions.height20*5,
@@ -232,8 +232,11 @@ class CartPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                    //popularProduct.addItem(product);
-                    cartController.addToHistory();
+                    if (Get.find<AuthController>().userLoggedIn()){
+                      cartController.addToHistory();
+                    }else{
+                        Get.toNamed(RouteHelper.getSignInPage());
+                    }
                   },
                   child: Container(
                     child: BigText(

@@ -11,9 +11,12 @@ class PopularProductController extends GetxController{
   //BEFORE WE INITIALIZE CONTROLLER, WE FIRST PASS REPO 
 
   final PopularProductRepo popularProductRepo;
+
   PopularProductController({required this.popularProductRepo});
-  List <dynamic> _popularProductList=[]; // this is to save data gotten from repo
-  List <dynamic> get popularProductList => _popularProductList;
+
+  List <ProductModel> _popularProductList=[]; // this is to save data gotten from repo
+  List <ProductModel> get popularProductList => _popularProductList;
+
   late CartController _cart;
 
   bool _isLoaded = false;
@@ -26,45 +29,15 @@ class PopularProductController extends GetxController{
   int get inCartItems => _inCartItems + _quantity ;
 
 
-  /*Future <void> getPopularProductList() async{
-    Response response = await popularProductRepo.getPopularProductList();
-    //when this is called, it goes to api_client, finds response and sends to repo and to controller
-    if(response.statusCode==200){
-
-      _popularProductList=[];
-      _popularProductList.addAll(Product.fromJson(response.body).products);//this is where we used our models
-      // print(_popularProductList);
-      _popularProductList = response.body.map((data) => ProductModel.fromJson(data)).toList();
-
-      _isLoaded=true;
-      update();
-    }else{
-      print("Couldn't get Product");
-    }
-  }*/
-
-
   Future<void> getPopularProductList() async {
-    Response response = await popularProductRepo.getPopularProductList();
-
-    if (response.statusCode == 200) {
-      _popularProductList = [];
-      try {
-        _popularProductList = (response.body as List)
-            .map((data) => ProductModel.fromJson(data))
-            .toList();
-        _isLoaded = true;
-        update();
-      } catch (e) {
-        print("Parsing error: $e");
-      }
-    } else {
-      print("Couldn't get Product. Status: ${response.statusCode}");
+    try {
+      _popularProductList = await popularProductRepo.getPopularProductList();
+      _isLoaded = true;
+      update();
+    } catch (e) {
+      print("Couldn't get products: $e");
     }
   }
-
-
-
 
 
 

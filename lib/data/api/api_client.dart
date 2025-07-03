@@ -14,13 +14,17 @@ class ApiClient extends GetConnect implements GetxService{
     timeout = Duration(seconds: 30); // this how long it should try to get data from server
     token=AppConstants.TOKEN;
     _mainHeaders = {
-      //Map is marked late because its meant to be initialised before use
-      //maps are wrapped around {} list are wrapped around {}
-      //Maps takes key and value
       'Content-type' : 'application/json; charset=UTF-8',
       'Authorization' : 'Bearer $token',
     };
   }
+void updateHeader(String token){
+  _mainHeaders = {
+    'Content-type' : 'application/json; charset=UTF-8',
+    'Authorization' : 'Bearer $token',
+  };
+}
+
 
  Future <Response> getData(String uri,) async {
     try{//trying to call something from the server
@@ -30,4 +34,17 @@ class ApiClient extends GetConnect implements GetxService{
       return Response(statusCode: 1, statusText:e.toString());
     }
  }
+
+ //this part is for auth
+  Future <Response> postData(String uri, dynamic body) async {
+    try{
+      Response response = await post(uri, body, headers: _mainHeaders);
+      return response;
+    }catch(e){
+      print(e.toString());
+      return Response(statusCode: 1, statusText:  e.toString());
+    }
+ }
+
+
 }

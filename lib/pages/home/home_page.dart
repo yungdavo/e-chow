@@ -1,8 +1,10 @@
 import 'package:e_Chow/pages/Cart/cart_history.dart';
+import 'package:e_Chow/pages/accounts/accounts_page.dart';
 import 'package:e_Chow/pages/home/main_food_page.dart';
 import 'package:e_Chow/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../accounts/auth/sign_in_page.dart';
 
 
 
@@ -22,9 +24,9 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    Container(child: Center(child: Text("Page 1"))),
+    Container(child: Text("Favourtite Page")),//will be removed later
     CartHistory(),
-    Container(child: Center(child: Text("Page 3"))),
+    AccountPage(),
   ];
 
   void onTapNav(int index) {

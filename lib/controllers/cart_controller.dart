@@ -5,7 +5,7 @@ import '../models/cart_model.dart';
 import '../models/products_model.dart';
 import '../utils/colors.dart';
 
-class CartController extends GetxController {
+/*class CartController extends GetxController {
   final CartRepo cartRepo;
 
   CartController({required this.cartRepo});
@@ -14,9 +14,9 @@ class CartController extends GetxController {
 
   Map<int, CartModel> get items => _items;
 
-  /*
+  *//*
   only for storage and shared preferences
- */
+ *//*
   
   List<CartModel> storageItems=[];
 
@@ -57,7 +57,7 @@ class CartController extends GetxController {
             id: product.id,
             name: product.name,
             price: product.price,
-            img: product.img,
+            img: product.image,
             quantity: quantity,
             isExist: true,
             time: DateTime.now().toString(),
@@ -158,4 +158,135 @@ class CartController extends GetxController {
     update();
   }
 
+}*/
+
+class CartController extends GetxController {
+  final CartRepo cartRepo;
+
+  CartController({required this.cartRepo});
+
+  Map<int, CartModel> _items = {};
+  Map<int, CartModel> get items => _items;
+
+  List<CartModel> storageItems = [];
+
+  void addItem(ProductModel product, int quantity) {
+    if (product.id == null) return;
+
+    var totalQuantity = 0;
+
+    if (_items.containsKey(product.id!)) {
+      _items.update(product.id!, (value) {
+        totalQuantity = value.quantity! + quantity;
+
+        return CartModel(
+          id: value.id,
+          name: value.name,
+          price: value.price,
+          img: value.img,
+          quantity: totalQuantity,
+          isExist: true,
+          time: DateTime.now().toString(),
+          product: product,
+        );
+      });
+
+      if (totalQuantity <= 0) {
+        _items.remove(product.id);
+      }
+    } else {
+      if (quantity > 0) {
+        _items.putIfAbsent(product.id!, () {
+          return CartModel(
+            id: product.id,
+            name: product.name,
+            price: double.tryParse(product.price?.toString() ?? '0'),
+            img: product.image,
+            quantity: quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+            product: product,
+          );
+        });
+      } else {
+        Get.snackbar("Oops!", "You haven’t added any item",
+            backgroundColor: AppColors.mainColor, colorText: Colors.black);
+      }
+    }
+
+    cartRepo.addToCartList(getItems);
+    update();
+  }
+
+  bool existInCart(ProductModel product) {
+    return _items.containsKey(product.id);
+  }
+
+  int getQuantity(ProductModel product) {
+    return _items[product.id]?.quantity ?? 0;
+  }
+
+  int get totalItems {
+    int total = 0;
+    _items.forEach((key, value) {
+      total += value.quantity ?? 0;
+    });
+    return total;
+  }
+
+  double get totalAmount {
+    double total = 0;
+    _items.forEach((key, value) {
+      total += (value.quantity ?? 0) * (value.price ?? 0);
+    });
+    return total;
+  }
+
+  List<CartModel> get getItems {
+    return _items.values.toList();
+  }
+
+  List<CartModel> getCartData() {
+    setCart = cartRepo.getCartList();
+    return _items.values.toList();
+  }
+
+  set setCart(List<CartModel> items) {
+    storageItems = items;
+    _items = {};
+
+    for (var item in storageItems) {
+      if (item.product?.id != null) {
+        _items.putIfAbsent(item.product!.id!, () => item);
+      }
+    }
+  }
+
+  void addToCartList() {
+    cartRepo.addToCartList(getItems);
+    update();
+  }
+
+  void clear() {
+    _items = {};
+    update();
+  }
+
+  void addToHistory() {
+    cartRepo.addToCartHistoryList();
+    clear();
+  }
+
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
+  }
+
+  set setItems(Map<int, CartModel> items) {
+    _items = items;
+  }
+
+  void clearCartHistory(){
+    cartRepo.clearCartHistory();
+    update();
+  }
 }

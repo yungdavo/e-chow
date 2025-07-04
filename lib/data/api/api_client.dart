@@ -26,9 +26,11 @@ void updateHeader(String token){
 }
 
 
- Future <Response> getData(String uri,) async {
+ Future <Response> getData(String uri, {Map <String, String>? headers}) async {
     try{//trying to call something from the server
-      Response response = await get(uri);//getMethod //
+      Response response = await get(uri,
+        headers: headers?? _mainHeaders
+      );//getMethod //
       return response; // returns response as the data
     }catch(e){//but if it fails, catch it here
       return Response(statusCode: 1, statusText:e.toString());

@@ -12,8 +12,8 @@ class AppConstants{
 
   static const String REGISTRATION_URI = "/api/auth/register" ;
   static const String LOGIN_URI = "/api/auth/login" ;
-  static const String USER_INFO_URI = "/api/auth/customer/info" ;
-
+  //static const String USER_INFO_URI = "/api/auth/customer/info" ;
+  static const String USER_INFO_URI = "/api/customer/info" ;
   static const String TOKEN = "";
   static const String PHONE = "";
   static const String PASSWORD = "";

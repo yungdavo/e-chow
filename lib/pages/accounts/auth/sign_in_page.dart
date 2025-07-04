@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../base/show_custom_snackbar.dart';
 import '../../../controllers/auth_controller.dart';
+import '../../../controllers/user_controller.dart';
 import '../../../utils/dimensions.dart';
 
 
@@ -36,9 +37,9 @@ class SignInPage extends StatelessWidget {
       }else if(password.length<6){
         showCustomSnackBar("Please enter not less than six characters", title: "password");
       }else{
-
         authController.login(email, password).then((status){
           if (status.isSuccess){
+            Get.find<UserController>().getUserInfo();
             Get.toNamed(RouteHelper.getInitial());
           }else{
             showCustomSnackBar(status.message);

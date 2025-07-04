@@ -1,3 +1,4 @@
+import 'package:e_Chow/data/api/api_client.dart';
 import 'package:e_Chow/data/repository/auth_repo.dart';
 import 'package:e_Chow/models/response_model.dart';
 import 'package:e_Chow/models/sign_up_model.dart';
@@ -22,6 +23,7 @@ class AuthController extends GetxController implements GetxService{
 
     if(response.statusCode==200){
       authRepo.saveUserToken(response.body["token"]);
+      Get.find<ApiClient>().updateHeader("token");
       responseModel = ResponseModel(true, response.body["token"]);
     }else{
       responseModel = ResponseModel(false, response.statusText!);
@@ -43,7 +45,8 @@ class AuthController extends GetxController implements GetxService{
     if(response.statusCode==200){
 
       authRepo.saveUserToken(response.body["token"]);
-
+      Get.find<ApiClient>().updateHeader("token");
+      print("My token is" + response.body["token"]);
       responseModel = ResponseModel(true, response.body["token"]);
     }else{
       responseModel = ResponseModel(false, response.statusText!);
